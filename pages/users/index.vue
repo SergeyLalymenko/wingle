@@ -1,8 +1,4 @@
 <script setup>
-
-const usersStore = useUsersStore();
-usersStore.fetchUsers();
-
 useHead({
     title: 'Users',
     meta: [
@@ -20,17 +16,22 @@ useHead({
         }
     ]
 });
-
 </script>
 
 <template>
     <div class="users">
         <div class="users__wrapper wrapper">
-            
+            <ModuleUsersCards />
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.users {
 
+    &__wrapper {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+}
 </style>

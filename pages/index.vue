@@ -1,5 +1,4 @@
 <script setup>
-
 useHead({
     title: 'Home',
     meta: [
@@ -17,7 +16,6 @@ useHead({
         }
     ]
 });
-
 </script>
 
 <template>
