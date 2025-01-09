@@ -30,22 +30,19 @@ const { user } = defineProps(['user']);
 
 <style lang="scss" scoped>
 .user-card {
-    $gap: 20px;
-    $cardsInRow: 5;
-    $gapInRow: $gap * ($cardsInRow - 1);
-
     display: flex;
     flex-direction: column;
     padding: 20px;
     border-radius: 8px;
     background: $colorBackgroundUpper;
     width: 100%;
-    max-width: calc(100% / 5 - $gapInRow / $cardsInRow);
 
     &__link {
         display: flex;
+        max-width: 120px;
         border-radius: 50%;
         overflow: hidden;
+        margin: 0 auto;
     }
 
     &__image {
