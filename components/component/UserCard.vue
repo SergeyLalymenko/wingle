@@ -21,6 +21,7 @@ const { user } = defineProps(['user']);
         </h6>
         <a
             class="user-card__email"
+            :title="user.email"
             :href="'mailto:' + user.email"
         >
             {{ user.email }}
