@@ -1,15 +1,10 @@
 <script setup>
 const searchValue = defineModel({ default: '' });
-const isLoading = ref(true);
-
 const searchConfig = {
     type: 'search',
     placeholder: 'Search'
 };
-
 const usersStore = useUsersStore();
-usersStore.fetchUsers();
-
 const filteredUsers = computed(() => {
     return usersStore.users.filter((user) => {
         const lowerName = user.name.toLowerCase();
@@ -20,20 +15,12 @@ const filteredUsers = computed(() => {
     });
 });
 
-function initLoadingTimer() {
-    setTimeout(() => {
-        isLoading.value = false;
-    }, 1000);
-}
-
-onMounted(initLoadingTimer);
+!usersStore.isLoadedOnce && usersStore.fetchUsers(1000);
 </script>
 
 <template>
     <div class="users-cards">
-        <p v-if="isLoading">
-            Loading...
-        </p>
+        <ComponentLoader v-if="usersStore.isLoading" />
         <template v-else>
             <div class="users-cards__head head">
                 <UIInput
@@ -50,6 +37,7 @@ onMounted(initLoadingTimer);
                     v-for="user in filteredUsers"
                     :key="user.id"
                     :user="user"
+                    class="users-cards__body-card"
                 />
             </div>
             <div
@@ -76,14 +64,74 @@ onMounted(initLoadingTimer);
     }
 
     &__body {
+        $gap: 20px;
+        $cardsInRow: 5;
+        $gapInRow: $gap * ($cardsInRow - 1);
+
         margin-top: 20px;
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: $gap;
+
+        &-card {
+            max-width: calc(100% / $cardsInRow - $gapInRow / $cardsInRow);
+        }
     }
 
     &__empty {
         margin-top: 20px;
+    }
+
+    @media(max-width: 1199px) {
+
+        &__body {
+            $gap: 20px;
+            $cardsInRow: 4;
+            $gapInRow: $gap * ($cardsInRow - 1);
+
+            &-card {
+                max-width: calc(100% / $cardsInRow - $gapInRow / $cardsInRow);
+            }
+        }
+    }
+
+    @media(max-width: 991px) {
+
+        &__body {
+            $gap: 20px;
+            $cardsInRow: 3;
+            $gapInRow: $gap * ($cardsInRow - 1);
+
+            &-card {
+                max-width: calc(100% / $cardsInRow - $gapInRow / $cardsInRow);
+            }
+        }
+    }
+
+    @media(max-width: 767px) {
+
+        &__body {
+            $gap: 20px;
+            $cardsInRow: 2;
+            $gapInRow: $gap * ($cardsInRow - 1);
+
+            &-card {
+                max-width: calc(100% / $cardsInRow - $gapInRow / $cardsInRow);
+            }
+        }
+    }
+
+    @media(max-width: 575px) {
+
+        &__body {
+            $gap: 20px;
+            $cardsInRow: 1;
+            $gapInRow: $gap * ($cardsInRow - 1);
+
+            &-card {
+                max-width: calc(100% / $cardsInRow - $gapInRow / $cardsInRow);
+            }
+        }
     }
 }
 </style>
